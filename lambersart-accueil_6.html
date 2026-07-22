@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lambersart — Fiche d'accueil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Jost:wght@300;400;500;600&family=Jost:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sage: #7E9A6D;
+    --sage-deep: #5F7A52;
+    --sage-pale: #E9EFE3;
+    --cream: #FAF8F3;
+    --ink: #2B2A25;
+    --ink-soft: #6B6A62;
+    --clay: #B97A4D;
+    --line: #DCD8CC;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Jost', sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.6;
+    padding-bottom:40px;
+  }
+  /* Par défaut : tout ce qui est marqué lang-en est caché, seul le français s'affiche */
+  .lang-en{display:none !important;}
+  body.show-en .lang-fr{display:none !important;}
+  body.show-en .lang-en{display:revert !important;}
+
+  .lang-toggle{
+    position:fixed;
+    top:16px; right:16px;
+    z-index:50;
+    background:var(--ink);
+    color:var(--cream);
+    border:none;
+    border-radius:30px;
+    padding:9px 18px;
+    font-family:'Jost', sans-serif;
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:0.04em;
+    cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,0.18);
+  }
+  .hero{
+    background:var(--sage);
+    color:white;
+    text-align:center;
+    padding:56px 24px 88px;
+    position:relative;
+  }
+  .eyebrow{
+    text-transform:uppercase;
+    font-size:11px;
+    letter-spacing:0.22em;
+    opacity:0.85;
+    margin-bottom:22px;
+  }
+  .script{
+    font-family:'Sacramento', cursive;
+    font-size:58px;
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .hero h1{
+    font-size:26px;
+    font-weight:600;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+  }
+  .hero .place{
+    margin-top:14px;
+    font-size:15px;
+    opacity:0.9;
+    letter-spacing:0.03em;
+  }
+  .hero .addr{
+    font-size:13px;
+    opacity:0.75;
+    margin-top:4px;
+  }
+  .arc-down{
+    position:absolute;
+    bottom:-1px; left:0; right:0;
+    height:44px;
+    background:var(--cream);
+    border-radius:50% 50% 0 0 / 100% 100% 0 0;
+  }
+  main{
+    max-width:640px;
+    margin:0 auto;
+    padding:36px 20px 0;
+  }
+  .card{
+    background:white;
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:24px 22px;
+    margin-bottom:18px;
+  }
+  .card h2{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    color:var(--sage-deep);
+    font-weight:600;
+    margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .card h2::before{
+    content:'';
+    width:16px;
+    height:1px;
+    background:var(--clay);
+    display:inline-block;
+  }
+  .wifi-box{
+    background:var(--sage-pale);
+    border-radius:10px;
+    padding:14px 16px;
+    font-size:14px;
+  }
+  .wifi-box div{margin-bottom:4px;}
+  .wifi-box b{color:var(--sage-deep);}
+  .mono{
+    font-family:'Courier New', monospace;
+    background:white;
+    padding:2px 6px;
+    border-radius:4px;
+    word-break:break-all;
+    font-size:13px;
+  }
+  ul.rules{list-style:none;}
+  ul.rules li{
+    position:relative;
+    padding-left:24px;
+    margin-bottom:10px;
+    font-size:14.5px;
+  }
+  ul.rules li::before{
+    content:'✓';
+    position:absolute;
+    left:0;
+    color:var(--sage-deep);
+    font-weight:600;
+  }
+  .depart-badge{
+    display:inline-block;
+    background:var(--ink);
+    color:white;
+    font-size:12px;
+    letter-spacing:0.05em;
+    padding:5px 12px;
+    border-radius:20px;
+    margin-bottom:14px;
+  }
+  .contact-row{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    font-size:14.5px;
+    margin-bottom:10px;
+  }
+  .contact-row a{color:var(--ink); text-decoration:none;}
+  .icon{
+    width:30px; height:30px;
+    background:var(--sage-pale);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px;
+    flex-shrink:0;
+  }
+  .place-item{
+    padding:12px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .place-item:last-child{border-bottom:none;}
+  .place-item .row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:10px;
+  }
+  .place-item .name{font-weight:500; font-size:14.5px;}
+  .place-item .tag{
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--clay);
+    white-space:nowrap;
+  }
+  .place-item .addr{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin-top:2px;
+  }
+  .divider-label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    color:var(--ink-soft);
+    margin:16px 0 8px;
+  }
+  .divider-label:first-child{margin-top:0;}
+  .footer{
+    text-align:center;
+    margin-top:30px;
+  }
+  .footer-arc{
+    background:var(--sage);
+    color:white;
+    border-radius:60% 60% 0 0 / 30px;
+    padding:44px 24px 34px;
+    margin-top:20px;
+  }
+  .footer-arc .script{font-size:34px; margin-bottom:2px;}
+  .footer-arc p{font-size:13px; opacity:0.9;}
+  .disclaimer{
+    font-size:11.5px;
+    color:var(--ink-soft);
+    text-align:center;
+    padding:0 20px;
+    margin-top:6px;
+  }
+</style>
+</head>
+<body>
+
+<button class="lang-toggle" onclick="toggleLang()" id="langBtn">EN ▸</button>
+
+<div class="hero">
+  <div class="eyebrow lang-fr">Fiche d'accueil</div>
+  <div class="eyebrow lang-en">Welcome Guide</div>
+  <div class="script lang-fr">Bienvenue</div>
+  <div class="script lang-en">Welcome</div>
+  <h1 class="lang-fr">Dans notre maison</h1>
+  <h1 class="lang-en">In our house</h1>
+  <div class="place">Lambersart</div>
+  <div class="addr">256 Avenue de Dunkerque, 59130 Lambersart</div>
+  <div class="arc-down"></div>
+</div>
+
+<main>
+
+  <div class="card">
+    <h2 class="lang-fr">Accès internet</h2>
+    <h2 class="lang-en">Internet access</h2>
+    <div class="wifi-box">
+      <div><b class="lang-fr">Identifiant :</b><b class="lang-en">Network:</b> Freebox-3288C5</div>
+      <div><b class="lang-fr">Mot de passe :</b><b class="lang-en">Password:</b> <span class="mono">39dn9qvm7xq6s4vzqnw4nx</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="lang-fr">Règles à respecter</h2>
+    <h2 class="lang-en">House rules</h2>
+    <ul class="rules">
+      <li class="lang-fr">Interdit de fumer ou vapoter à l'intérieur</li>
+      <li class="lang-en">No smoking or vaping inside</li>
+      <li class="lang-fr">Pas de grosse fête autorisée</li>
+      <li class="lang-en">No large parties allowed</li>
+      <li class="lang-fr">Bruits modérés après 22h</li>
+      <li class="lang-en">Keep noise to a minimum after 10 PM</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 class="lang-fr">Départ de la maison</h2>
+    <h2 class="lang-en">Departure</h2>
+    <div class="depart-badge lang-fr">Départ à 11h</div>
+    <div class="depart-badge lang-en">Departure at 11 AM</div>
+    <ul class="rules">
+      <li class="lang-fr">Rendre le logement propre</li>
+      <li class="lang-en">Leave the accommodation clean</li>
+      <li class="lang-fr">Éteindre lumières et chauffage</li>
+      <li class="lang-en">Turn off lights and heating</li>
+      <li class="lang-fr">Fermer toutes les fenêtres</li>
+      <li class="lang-en">Close all windows</li>
+      <li class="lang-fr">Sortir toutes les poubelles</li>
+      <li class="lang-en">Take out all the rubbish</li>
+      <li class="lang-fr">Remettre les clés dans la boîte à clé</li>
+      <li class="lang-en">Return the keys to the key box</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 class="lang-fr">Autour du logement</h2>
+    <h2 class="lang-en">Around the accommodation</h2>
+
+    <div class="divider-label lang-fr">Restaurants</div>
+    <div class="divider-label lang-en">Restaurants</div>
+
+    <div class="place-item">
+      <div class="row"><span class="name">Chez mon cousin</span><span class="tag lang-fr">Français</span><span class="tag lang-en">French</span></div>
+      <div class="addr">282 Av. de Dunkerque — 4.5★</div>
+    </div>
+    <div class="place-item">
+      <div class="row"><span class="name">Au Cœur de l'Inde</span><span class="tag lang-fr">Indien</span><span class="tag lang-en">Indian</span></div>
+      <div class="addr">226 Av. de Dunkerque — 4.7★</div>
+    </div>
+    <div class="place-item">
+      <div class="row"><span class="name">Les Petites Douceurs de Phuket</span><span class="tag lang-fr">Thaï</span><span class="tag lang-en">Thai</span></div>
+      <div class="addr">218 Av. de Dunkerque — 4.5★</div>
+    </div>
+    <div class="place-item">
+      <div class="row"><span class="name">Bistrot 235</span><span class="tag lang-fr">Bistrot</span><span class="tag lang-en">Bistro</span></div>
+      <div class="addr">235 Av. de l'Hippodrome — 4.7★</div>
+    </div>
+
+    <div class="divider-label lang-fr">Boulangeries</div>
+    <div class="divider-label lang-en">Bakeries</div>
+    <div class="place-item">
+      <div class="row"><span class="name">Maison Pitman</span></div>
+      <div class="addr">29 Av. Sainte-Cécile — 4.3★</div>
+    </div>
+    <div class="place-item">
+      <div class="row"><span class="name">Auguste &amp; Ferdinand</span></div>
+      <div class="addr">182 Av. de l'Hippodrome — 4.3★</div>
+    </div>
+
+    <div class="divider-label lang-fr">Courses</div>
+    <div class="divider-label lang-en">Groceries</div>
+    <div class="place-item">
+      <div class="row"><span class="name">Supermarché Match</span></div>
+      <div class="addr">250 Av. de Dunkerque</div>
+    </div>
+    <div class="place-item">
+      <div class="row"><span class="name">Carrefour City</span></div>
+      <div class="addr">286-292 Av. de Dunkerque</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="lang-fr">Pour nous joindre</h2>
+    <h2 class="lang-en">To contact us</h2>
+    <div class="contact-row"><span class="icon">✆</span><a href="tel:+33660344071">+33 6 60 34 40 71</a></div>
+    <div class="contact-row"><span class="icon">✉</span><a href="mailto:nizar.trabelsi@roamingfr.com">nizar.trabelsi@roamingfr.com</a></div>
+    <p style="font-size:13.5px; color:var(--ink-soft); margin-top:8px;" class="lang-fr">Pour toute question, nous sommes à votre disposition.</p>
+    <p style="font-size:13.5px; color:var(--ink-soft); margin-top:8px;" class="lang-en">We are available to answer any questions you may have.</p>
+    <p style="font-size:13.5px; color:var(--sage-deep); margin-top:14px; padding-top:14px; border-top:1px solid var(--line);" class="lang-fr">Vous avez passé un agréable séjour ? Contactez-nous directement pour vos prochaines réservations — nous serons ravis de vous proposer un tarif avantageux, au bénéfice de chacun.</p>
+    <p style="font-size:13.5px; color:var(--sage-deep); margin-top:14px; padding-top:14px; border-top:1px solid var(--line);" class="lang-en">Had a pleasant stay? Contact us directly for your next booking — we'd be happy to offer you a great rate, to everyone's benefit.</p>
+  </div>
+
+  <p class="disclaimer lang-fr">*Tout objet manquant ou toute dégradation constatée après le départ pourra être facturé(e) au voyageur.</p>
+  <p class="disclaimer lang-en">*Any missing items or damage found after departure may be charged to the traveler.</p>
+
+  <div class="footer">
+    <div class="footer-arc">
+      <div class="script lang-fr">Merci</div>
+      <div class="script lang-en">Thank you</div>
+      <p class="lang-fr">Nous espérons vous revoir très prochainement.</p>
+      <p class="lang-en">We hope to see you again very soon.</p>
+    </div>
+  </div>
+
+</main>
+
+<script>
+function toggleLang(){
+  document.body.classList.toggle('show-en');
+  document.getElementById('langBtn').textContent = document.body.classList.contains('show-en') ? '◂ FR' : 'EN ▸';
+}
+</script>
+
+</body>
+</html>
